@@ -18,6 +18,7 @@ from app.schema.reflection_schema import (
     MonthlyReflectionResponseDTO,
 )
 
+
 # 마음 돌아보기 (주간/월간 감정 분석 집계) 비즈니스 로직, 예외 처리, 트랜잭션 관리
 class ReflectionService:
 
@@ -39,7 +40,7 @@ class ReflectionService:
     #------기능-------
     async def get_week(self,user_id: int, day:date|None=None)-> WeeklyReflectionResponseDTO:
         start, end = week_range(day or today_kst())
-        records = await self.repo.find_records_in_range(user_id. start, end)
+        records = await self.repo.find_records_in_range(user_id, start, end)
 
         tag_counts = count_tags(records)
         top_tag = tag_counts[0]["tag"] if tag_counts else None
